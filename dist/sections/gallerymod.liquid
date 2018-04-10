@@ -6,74 +6,25 @@
           <h4>{{ section.settings.title | escape }}</h4>
         </header>
       {% endif %}
-
-      {% comment %}
-        Evaluate how many images are in the section
-        Calculate how the number of rows based on the targetted images per row
-        Use the remainder to create a different grid layout for the first row
-      {% endcomment %}
-      {%- assign total_blocks = section.blocks.size -%}
-      {%- assign target_per_row = section.settings.images_per_row_range -%}
-      {%- assign first_row_size = total_blocks | modulo: target_per_row -%}
-      {%- assign target_row_count = total_blocks | divided_by: target_per_row -%}
-      {% if first_row_size > 0 %}
-        {%- assign total_row_count = target_row_count | plus: 1 -%}
-      {% endif %}
-      {% case target_per_row %}
-        {% when 2 %}
-          {%- assign grid_item_width = 'one-half' -%}
-        {% when 3 %}
-          {%- assign grid_item_width = 'one-third' -%}
-        {% when 4 %}
-          {%- assign grid_item_width = 'one-quarter' -%}
-      {% endcase %}
-      {% case first_row_size %}
-        {% when 1 %}
-          {%- assign first_grid_item_width = 'one-full' -%}
-        {% when 2 %}
-          {%- assign first_grid_item_width = 'one-half' -%}
-        {% when 3 %}
-          {%- assign first_grid_item_width = 'one-third' -%}
-        {% when 4 %}
-          {%- assign first_grid_item_width = 'one-quarter' -%}
-      {% endcase %}
-      {%- assign last_row_start = total_blocks | minus: target_per_row | plus: 1 -%}
-      <div class="{% if section.settings.gutter %}grid{% else %}grid-gutterless{% endif %}">
+      <div class="flexgrid">
         {% for block in section.blocks limit: section.blocks.size %}
-          {% if forloop.index <= first_row_size %}
-            {%- assign block_grid_item_width = first_grid_item_width -%}
-            {%- assign block_image_size = first_image_size -%}
-          {% else %}
-            {%- assign block_grid_item_width = grid_item_width -%}
-            {%- assign block_image_size = image_size -%}
-          {% endif %}
+	{% if forloop.index == 2 %}
+		<div class="wrap">
+	{% endif %}
 
-          <div class="grid__item {{ block_grid_item_width }} medium-down--one-whole {% if section.settings.section_padding == false and section.settings.gutter == false and forloop.index >= last_row_start %}no-bottom-margin{% endif %}" {{ block.shopify_attributes }}>
             {% include 'image-grid-item', text_placement: section.settings.text_placement, zoom: section.settings.zoom, full_width: section.settings.full_width %}
-          </div>
+	{% if forloop.index == 4 %}
+		</div>
+	{% endif %}
         {% endfor %}
       </div>
     </div>
   </div>
 </div>
-<style>
-  #shopify-section-{{ section.id }} .box figcaption h4 {
-    color: {{ section.settings.color_overlay_text }};
-  }
-  {% assign overlay_alpha = section.settings.color_overlay_alpha_range | times: 0.01 %}
-  #shopify-section-{{ section.id }} .box a figure:after,
-  #shopify-section-{{ section.id }} .box div.hover-wrapper figure:after {
-    background-color: {{ section.settings.color_overlay | hex_to_rgba: overlay_alpha }};
-  }
-  #shopify-section-{{ section.id }} .box a:hover figure:after,
-  #shopify-section-{{ section.id }} .box div.hover-wrapper:hover figure:after {
-    background-color: {{ section.settings.color_overlay_hover | hex_to_rgba: overlay_alpha }};
-  }
-</style>
 
 {% schema %}
 {
-  "name": "Gallery",
+  "name": "Gallery Mod",
   "class": "gallery-section",
   "settings": [
     {
