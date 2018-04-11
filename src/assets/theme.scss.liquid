@@ -221,9 +221,9 @@ $max: max-width;
   {% assign navFontStack = settings.typography_navigation_family %}
 {% endif %}
 
-$headerFontStack: {{ headerFontStack }};
 $headerFontWeight: {{ headerFontWeight }};
-$navFontStack: {{ navFontStack }};
+$navFontStack: 'brandon-grotesque';
+$headerFontStack: $navFontStack;
 $bodyFontStack: {{ bodyFontStack }};
 $logoFontStack: $navFontStack;
 
@@ -1120,7 +1120,7 @@ button,
 input,
 select,
 textarea {
-    font-family: $normalized_font_family;
+    font-family: 'brandon-grotesque';
 }
 
 // Addresses margins handled incorrectly in IE6/7
@@ -1607,7 +1607,7 @@ button,
 select {
   font-size: $baseFontSize;
   line-height: 1.6;
-  font-family: $bodyFontStack;
+  font-family: 'brandon-grotesque';
   color: $primaryTextColor;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -2331,7 +2331,7 @@ header.promo-bar {
 header.util {
   width: 100%;
   @include clearfix();
-  background: $siteBorderColor;
+  background: #e0fbac;
   color: $siteBorderTextColor;
   font-size: em(12px);
   font-family: $navFontStack;
@@ -2970,13 +2970,12 @@ header.site-header {
           font-weight: $siteHeaderNavTextWeight;
           text-transform: $siteHeaderNavTextTransform;
           text-decoration: none;
-          color: $siteHeaderNavTextColor;
+          color: #379f7a;
           background: transparent;
           padding: 6px 12px;
           &:hover,
           &:focus {
-            color: $siteHeaderAccentColor;
-            background: $siteHeaderBackgroundColor;
+            color: #bbb749;
           }
         }
       }
@@ -9130,6 +9129,7 @@ button {
 
 
 .flexgrid {
+	font-family: 'brandon-grotesque';
 	display: flex;
 	width: 100%;
 	height: 500px;
@@ -9196,12 +9196,11 @@ button {
 header.site-header {
 	background: #e0fbac !important;
 	a {
-		color: #1f1c0d !important;
+		//color: #1f1c0d !important;
 	}
 }
 .featured-collection {
 	padding: 0 !important;
-	background: #379f7a;
 	.prods {
 		display: flex;
 		width: 50%;
@@ -9212,10 +9211,60 @@ header.site-header {
 			background: white;
 			display: flex;
 			justify-content: center;
+			position: relative;
 		}
 	}
 	
 }
 .featflex {
 	display: flex;
+}
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #379f7a;
+	opacity: 0.8;
+}
+.floater {
+	position: relative;
+	width: 50%;
+	.product_card__image-wrapper {
+		position: static !important;
+	}
+	img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+	figcaption {
+		z-index: 99;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		width: 100%;
+		a.title {
+			color: #e0fbac !important;
+			font-size: 20px !important;
+			font-weight: 700;
+		}
+		.price {
+			font-size: 16px !important;
+			color: white;
+		}
+		.from {
+			display: none !important;
+		}
+	}
+}
+.americanheader {
+	color: #379f7a;
+	font-size: 64px;
+	span {
+		color: #bbb749;
+	}
 }

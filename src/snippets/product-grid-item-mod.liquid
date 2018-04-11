@@ -36,7 +36,7 @@
     --- set padding-top to 100%
     --- absolute top to 50% and transform translateY to -50%
   {% endcomment -%}
-  <figure>
+  <figure class="floater">
     <a id="{{ wrapper_id }}" href="{{ product.url | within: collection }}" class="product_card">
       {%- assign image = product.featured_image -%}
       <div class="product_card__image-wrapper" data-bgset="{% include 'bgset', image: image %}">

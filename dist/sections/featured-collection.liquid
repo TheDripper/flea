@@ -21,7 +21,7 @@
       </div>
 	<div class="prods">
       {% for product in collection.products limit: product_limit  %}
-        {% include 'product-grid-item' %}
+        {% include 'product-grid-item-mod' %}
       {% else %}
         {% for i in (1..product_limit) %}
           {% include 'placeholder-product-grid-item' %}
